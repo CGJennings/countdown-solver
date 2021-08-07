@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <pre id="output"></pre>
+        <script src="number-solver.js"></script>
+        <script>
+            const output = document.getElementById("output");
+            const puzzle = new NumberPuzzle();
+            output.textContent = puzzle.toString();
+            setTimeout(() => {
+                const solns = puzzle.solve();
+                output.textContent = `${puzzle}\n\n${solns.best.toString()}`;
+            }, 17);
+        </script>
+    </body>
+</html>

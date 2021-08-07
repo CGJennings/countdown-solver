@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <input id="input" size="9" value="mspitsaoe" style="font-family: monospace; text-transform: uppercase">
+        <pre id="results" style="white-space: pre-wrap; text-transform: uppercase"></pre>
+        <script src="word-list.js"></script>
+        <script src="ternary-tree.js"></script>
+        <script>
+            const tree = new TernarySearchTree();
+            tree.addAll(wordList);
+            delete wordList;
+
+            const input = document.getElementById("input");
+            input.addEventListener("input", (ev) => {
+                const letters = input.value.replace(/[^a-zA-Z]/g, "").toLowerCase();
+                const ordered = [[],[],[],[],[],[],[],[],[]];
+                tree.arrangements(letters).forEach((w) => {
+                    ordered[9-w.length].push(w);
+                });
+
+                let results = "";
+                ordered.forEach((array, i) => {
+                    if (array && array.length > 0) {
+                        results += `[${9-i}]\n${array.join(", ")}\n\n`;
+                    }
+                });
+                document.getElementById("results").textContent = results;
+            });
+            input.dispatchEvent(new Event("input"));
+            input.focus();
+        </script>
+    </body>
+</html>
